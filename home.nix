@@ -54,6 +54,9 @@
         "$mod SHIFT, 3, movetoworkspace, 3"
         "$mod SHIFT, 4, movetoworkspace, 4"
         "$mod SHIFT, 5, movetoworkspace, 5"
+
+        # logout
+        "$mod SHIFT, Q, exit"  # Super + Shift + Q will log out to SDDM
       ];
 
       # Window rules
@@ -267,8 +270,8 @@
    programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
-    # terminal = "${systemPackages.ghostty}/bin/ghostty";
-    theme = "dracula"; # Or any other theme you prefer
+    terminal = "ghostty";
+    theme = "~/nixos-config/theme.rafi";
     extraConfig = {
       modi = "run,drun,window";
       icon-theme = "Papirus";
@@ -284,19 +287,21 @@
     };
   };
 
-  home.file.".config/hypr/wallpapers/mountain.jpg".source = config.lib.file.mkOutOfStoreSymlink "/etc/nixos/wallpapers/mountain.jpg";
-
   home.file.".config/hypr/hyprpaper.conf".text = ''
-    preload = ~/.config/hypr/wallpapers/mountain.jpg
-    wallpaper = ,~/.config/hypr/wallpapers/mountain.jpg
+    preload = ~/nixos-config/wallpapers/mountain.jpg
+    wallpaper = ,~/nixos-config/wallpapers/mountain.jpg
   '';
 
   wayland.windowManager.hyprland.settings = {
+    misc = {
+      disable_splash_rendering = true;
+      disable_hyprland_logo = true;
+    };
+    
     exec-once = [
-      "hyprpaper"
-      # any other startup commands you have...
+      "${pkgs.hyprpaper}/bin/hyprpaper"
+      # other startup commands...
     ];
-    # rest of your Hyprland settings...
   };
 
   # This value determines the home Manager release that your

@@ -53,14 +53,13 @@
       layout = "us";
       variant = "";
     };
-    displayManager = {
-      gdm.enable = false;
-      sddm = {
-        enable = true;
-        wayland.enable = true;
-      };
-    };
+    displayManager.gdm.enable = false;
     desktopManager.gnome.enable = false;
+  };
+
+  services.displayManager.sddm = {
+    enable = true;
+    wayland.enable = true;
   };
 
   # Add Hyprland
