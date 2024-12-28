@@ -13,9 +13,19 @@
     settings = {
       "$mod" = "SUPER";
       
-      # Monitor configuration
+      misc = {
+        disable_splash_rendering = true;
+        disable_hyprland_logo = true;
+      };
+
       monitor = [
-        ",preferred,auto,auto"
+        "DP-1,preferred,auto,1"
+        "DP-2,preferred,auto,1,transform,2"
+      ];
+      
+      exec-once = [
+        "${pkgs.hyprpaper}/bin/hyprpaper"
+        # other startup commands...
       ];
 
       # Basic window management
@@ -291,18 +301,6 @@
     preload = ~/nixos-config/wallpapers/mountain.jpg
     wallpaper = ,~/nixos-config/wallpapers/mountain.jpg
   '';
-
-  wayland.windowManager.hyprland.settings = {
-    misc = {
-      disable_splash_rendering = true;
-      disable_hyprland_logo = true;
-    };
-    
-    exec-once = [
-      "${pkgs.hyprpaper}/bin/hyprpaper"
-      # other startup commands...
-    ];
-  };
 
   # This value determines the home Manager release that your
   # configuration is compatible with. This helps avoid breakage
