@@ -7,6 +7,7 @@
     
   imports = [ 
     ./hyprland.nix 
+    ./waybar.nix
     inputs.textfox.homeManagerModules.default
   ];
 
@@ -32,6 +33,7 @@
     slurp   # Screen area selection
     pamixer # Audio control
     hyprpaper # wallpaper
+    waybar
 
     # archives
     zip

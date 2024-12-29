@@ -21,6 +21,8 @@
       
       exec-once = [
         "${pkgs.hyprpaper}/bin/hyprpaper"
+        "waybar"
+        "${pkgs.hypridle}/bin/hypridle --idle 300 --exec ${pkgs.hyprlock}/bin/hyprlock"
         # other startup commands...
       ];
 
