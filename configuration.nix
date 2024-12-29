@@ -4,6 +4,9 @@
 
 { config, pkgs, ... }:
 
+let
+  sddm-astronaut-theme = pkgs.callPackage ./packages/sddm-astronaut-theme.nix {};
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -59,6 +62,7 @@
 
   services.displayManager.sddm = {
     enable = true;
+    theme = "astronaut";
     wayland.enable = true;
   };
 
@@ -131,6 +135,7 @@
     git
     rofi-wayland
     firefox
+    sddm-astronaut-theme
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

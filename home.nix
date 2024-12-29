@@ -4,114 +4,17 @@
   # TODO please change the username & home directory to your own
   home.username = "zach";
   home.homeDirectory = "/home/zach";
-
-  wayland.windowManager.hyprland = {
-    enable = true;
-    systemd.enable = true;
-    xwayland.enable = true;
-
-    settings = {
-      "$mod" = "SUPER";
-      
-      misc = {
-        disable_splash_rendering = true;
-        disable_hyprland_logo = true;
-      };
-
-      monitor = [
-        "DP-1,preferred,auto,1"
-        "DP-2,preferred,auto,1,transform,2"
-      ];
-      
-      exec-once = [
-        "${pkgs.hyprpaper}/bin/hyprpaper"
-        # other startup commands...
-      ];
-
-      # Basic window management
-      bind = [
-        # Application launchers
-        "$mod, RETURN, exec, ghostty"
-        "$mod, Space, exec, rofi -show drun"
-        "$mod, B, exec, firefox"
-
-        # Window management
-        "$mod, Q, killactive"
-        "$mod, F, fullscreen"
-        
-        # Focus
-        "$mod, left, movefocus, l"
-        "$mod, right, movefocus, r"
-        "$mod, up, movefocus, u"
-        "$mod, down, movefocus, d"
-        
-        # Move windows
-        "$mod SHIFT, left, movewindow, l"
-        "$mod SHIFT, right, movewindow, r"
-        "$mod SHIFT, up, movewindow, u"
-        "$mod SHIFT, down, movewindow, d"
-        
-        # Workspaces
-        "$mod, 1, workspace, 1"
-        "$mod, 2, workspace, 2"
-        "$mod, 3, workspace, 3"
-        "$mod, 4, workspace, 4"
-        "$mod, 5, workspace, 5"
-        
-        # Move windows to workspaces
-        "$mod SHIFT, 1, movetoworkspace, 1"
-        "$mod SHIFT, 2, movetoworkspace, 2"
-        "$mod SHIFT, 3, movetoworkspace, 3"
-        "$mod SHIFT, 4, movetoworkspace, 4"
-        "$mod SHIFT, 5, movetoworkspace, 5"
-
-        # logout
-        "$mod SHIFT, Q, exit"  # Super + Shift + Q will log out to SDDM
-      ];
-
-      # Window rules
-      windowrule = [
-        "float, ^(rofi)$"
-      ];
-
-      # Some default env vars
-      env = [
-        "XCURSOR_SIZE,24"
-        "GTK_THEME,Adwaita:dark"
-      ];
-
-      # Basic appearances
-      general = {
-        gaps_in = 5;
-        gaps_out = 10;
-        border_size = 2;
-        "col.active_border" = "rgba(33ccffee)";
-        "col.inactive_border" = "rgba(595959aa)";
-      };
-    };
-  };
-
-  # link the configuration file in current directory to the specified location in home directory
-  # home.file.".config/i3/wallpaper.jpg".source = ./wallpaper.jpg;
-
-  # link all files in `./scripts` to `~/.config/i3/scripts`
-  # home.file.".config/i3/scripts" = {
-  #   source = ./scripts;
-  #   recursive = true;   # link recursively
-  #   executable = true;  # make all files executable
-  # };
-
-  # encode the file content in nix configuration file directly
-  # home.file.".xxx".text = ''
-  #     xxx
-  # '';
+    
+  imports = [ 
+    ./hyprland.nix 
+    inputs.textfox.homeManagerModules.default
+  ];
 
   # set cursor size and dpi for 4k monitor
   xresources.properties = {
     "Xcursor.size" = 16;
     "Xft.dpi" = 172;
   };
-
 
   # Packages that should be installed to the user profile.
   home.packages = with pkgs; [
@@ -217,14 +120,12 @@
     policies = {
       ExtensionSettings = {
         "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
-	  install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
-	  installation_mode = "force_installed";
-	};
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+          installation_mode = "force_installed";
+        };
       };
     }; 
   };
-  
-  imports = [ inputs.textfox.homeManagerModules.default ];
 
   textfox = {
     enable = true;
@@ -277,7 +178,7 @@
     };
   };
 
-   programs.rofi = {
+  programs.rofi = {
     enable = true;
     package = pkgs.rofi-wayland;
     terminal = "ghostty";
@@ -297,21 +198,6 @@
     };
   };
 
-  home.file.".config/hypr/hyprpaper.conf".text = ''
-    preload = ~/nixos-config/wallpapers/mountain.jpg
-    wallpaper = ,~/nixos-config/wallpapers/mountain.jpg
-  '';
-
-  # This value determines the home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update home Manager without changing this value. See
-  # the home Manager release notes for a list of state version
-  # changes in each release.
   home.stateVersion = "24.11";
-
-  # Let home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
