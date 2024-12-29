@@ -5,47 +5,63 @@
   programs.waybar = {
     enable = true;
     package = pkgs.waybar.override {
-      hyprlandSupport = true;  # Add this line
+      hyprlandSupport = true;
     };
     settings = {
       mainBar = {
         layer = "top";
         position = "top";
-        height = 30;
+        height = 32;
+        spacing = 4;
+        margin-top = 0;
+        margin-left = 0;
+        margin-right = 0;
+        
         modules-left = ["hyprland/workspaces"];
         modules-center = ["clock"];
         modules-right = ["pulseaudio" "network" "battery" "tray"];
         
         "hyprland/workspaces" = {
-          format = "{name}";
+          format = "•";
           on-click = "activate";
+          all-outputs = true;
+          active-only = false;
+          show-special = false;
         };
         
         "clock" = {
           format = "{:%I:%M %p}";
-          format-alt = "{:%Y-%m-%d}";
+          format-alt = "{:%e %b %Y}";
+          tooltip = false;
         };
         
         "pulseaudio" = {
-          format = "{volume}% {icon}";
-          format-muted = "🔇";
+          format = "{icon} {volume}%";
+          format-muted = "󰝟";
           format-icons = {
             default = ["" "" ""];
           };
+          on-click = "pavucontrol";
         };
         
         "network" = {
-          format-wifi = "{essid} ({signalStrength}%) ";
-          format-ethernet = "Connected ";
-          format-disconnected = "Disconnected ⚠";
+          format-wifi = "󰤨";
+          format-ethernet = "󰈀";
+          format-disconnected = "󰤭";
+          tooltip-format = "{essid}";
         };
         
         "battery" = {
-          format = "{capacity}% {icon}";
+          format = "{icon} {capacity}%";
           format-icons = ["" "" "" "" ""];
+          states = {
+            warning = 30;
+            critical = 15;
+          };
         };
         
         "tray" = {
+          icon-size = 16;
           spacing = 10;
         };
       };
@@ -53,36 +69,64 @@
     
     style = ''
       * {
-        border: none;
-        border-radius: 0;
         font-family: "JetBrainsMono Nerd Font";
         font-size: 13px;
         min-height: 0;
+        border: none;
+        border-radius: 0;
       }
-
+      
       window#waybar {
-        background: rgba(21, 18, 27, 0.9);
-        color: #cdd6f4;
+        background: rgba(255, 255, 255, 0.2);
+        color: #262626;
+        backdrop-filter: blur(10px);
       }
-
+      
+      window#waybar.hidden {
+        opacity: 0.2;
+      }
+      
+      #workspaces {
+        margin: 0 4px;
+      }
+      
       #workspaces button {
-        padding: 5px;
-        color: #313244;
-        margin-right: 5px;
+        all: unset;
+        color: #262626;
+        padding: 0 4px;
       }
-
+      
       #workspaces button.active {
-        color: #a6adc8;
-        background: #313244;
+        color: #0066CC;
       }
-
+      
       #clock,
       #battery,
       #pulseaudio,
       #network,
-      #workspaces,
       #tray {
-        padding: 0 10px;
+        padding: 0 8px;
+        color: #262626;
+      }
+      
+      #battery.warning {
+        color: #ff9400;
+      }
+      
+      #battery.critical {
+        color: #ff0000;
+      }
+      
+      #tray {
+        margin-right: 4px;
+      }
+      
+      #tray > .passive {
+        -gtk-icon-effect: dim;
+      }
+      
+      #tray > .needs-attention {
+        -gtk-icon-effect: highlight;
       }
     '';
   };

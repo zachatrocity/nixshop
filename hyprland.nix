@@ -22,9 +22,21 @@
       exec-once = [
         "${pkgs.hyprpaper}/bin/hyprpaper"
         "waybar"
-        "${pkgs.hypridle}/bin/hypridle --idle 300 --exec ${pkgs.hyprlock}/bin/hyprlock"
         # other startup commands...
       ];
+
+      decoration = {
+        blur = {
+          enabled = true;
+          size = 3;
+          passes = 3;
+          new_optimizations = true;
+          ignore_opacity = true;
+        };
+      };
+      
+      # Make sure waybar has blur
+      blurls = ["waybar"];
 
       # Basic window management
       bind = [
@@ -90,7 +102,7 @@
   };
 
   home.file.".config/hypr/hyprpaper.conf".text = ''
-    preload = ~/nixos-config/wallpapers/big-mountain.jpg
-    wallpaper = ,~/nixos-config/wallpapers/big-mountain.jpg
+    preload = ~/nixos-config/wallpapers/mountain.jpg
+    wallpaper = ,~/nixos-config/wallpapers/mountain.jpg
   '';
 }
