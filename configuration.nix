@@ -176,10 +176,13 @@ in
     rofi-wayland
     firefox
     pkgs.nixfmt-rfc-style
-    nodejs
     hypridle
     hyprlock
+    nodejs
+    nodePackages.node2nix
   ];
+
+  programs.npm.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
