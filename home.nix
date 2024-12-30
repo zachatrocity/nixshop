@@ -1,12 +1,19 @@
-{ inputs, config, pkgs, ... }:
+{
+  inputs,
+  config,
+  pkgs,
+  ...
+}:
 
 {
   # TODO please change the username & home directory to your own
   home.username = "zach";
   home.homeDirectory = "/home/zach";
-    
-  imports = [ 
-    ./hyprland.nix 
+
+  imports = [
+    ./fonts.nix
+    ./scripts.nix
+    ./hyprland.nix
     ./waybar.nix
     inputs.textfox.homeManagerModules.default
   ];
@@ -29,9 +36,10 @@
     rofi-wayland
     papirus-icon-theme
     wl-clipboard
-    grim    # Screenshot utility
-    slurp   # Screen area selection
+    grim # Screenshot utility
+    slurp # Screen area selection
     pamixer # Audio control
+    cava # Audio visualizer
     hyprpaper # wallpaper
     waybar
 
@@ -51,12 +59,12 @@
     # networking tools
     mtr # A network diagnostic tool
     iperf3
-    dnsutils  # `dig` + `nslookup`
+    dnsutils # `dig` + `nslookup`
     ldns # replacement of `dig`, it provide the command `drill`
     aria2 # A lightweight multi-protocol & multi-source command-line download utility
     socat # replacement of openbsd-netcat
     nmap # A utility for network discovery and security auditing
-    ipcalc  # it is a calculator for the IPv4/v6 addresses
+    ipcalc # it is a calculator for the IPv4/v6 addresses
 
     # misc
     cowsay
@@ -79,7 +87,7 @@
     hugo # static site generator
     glow # markdown previewer in terminal
 
-    btop  # replacement of htop/nmon
+    btop # replacement of htop/nmon
     iotop # io monitoring
     iftop # network monitoring
 
@@ -94,19 +102,29 @@
     ethtool
     pciutils # lspci
     usbutils # lsusb
+    bluez # bluetooth
+    blueman
 
     #dev
     zed-editor
     vscode
     micro
 
-    # flipper zero
+    # apps
     qFlipper
+    plexamp
   ];
 
   home.sessionVariables = {
     TERMINAL = "ghostty";
     BROWSER = "firefox";
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+    XDG_SESSION_TYPE = "wayland";
+    GBM_BACKEND = "nvidia-drm";
+    __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    LIBVA_DRIVER_NAME = "nvidia"; # hardware acceleration
+    __GL_VRR_ALLOWED = "1";
   };
 
   # basic configuration of git, please change to your own
@@ -117,7 +135,7 @@
   };
 
   # firefox
-  programs.firefox = { 
+  programs.firefox = {
     enable = true;
     policies = {
       ExtensionSettings = {
@@ -126,14 +144,14 @@
           installation_mode = "force_installed";
         };
       };
-    }; 
+    };
   };
 
   textfox = {
     enable = true;
     profile = "Zach Russell";
     config = {
-        # Optional config
+      # Optional config
     };
   };
 

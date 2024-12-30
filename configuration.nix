@@ -5,13 +5,13 @@
 { config, pkgs, ... }:
 
 let
-  sddm-astronaut-theme = pkgs.callPackage ./packages/sddm-astronaut-theme.nix {};
+  sddm-astronaut-theme = pkgs.callPackage ./packages/sddm-astronaut-theme.nix { };
 in
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -33,6 +33,9 @@ in
 
   # Set your time zone.
   time.timeZone = "America/Boise";
+
+  # Enable fonts
+  fonts.fontDir.enable = true;
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -60,10 +63,16 @@ in
     desktopManager.gnome.enable = false;
   };
 
-  services.displayManager.sddm = {
+  services.displayManager.sddm.enable = false;
+
+  services.greetd = {
     enable = true;
-    theme = "astronaut";
-    wayland.enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --cmd sway";
+        user = "greeter";
+      };
+    };
   };
 
   # Add Hyprland
@@ -77,6 +86,9 @@ in
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  services.blueman.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -98,9 +110,12 @@ in
   users.users.zach = {
     isNormalUser = true;
     description = "Zach";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+    ];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -126,16 +141,27 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  #Garbage colector
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 7d";
+  };
+
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     git
     rofi-wayland
     firefox
-    sddm-astronaut-theme
+    pkgs.nixfmt-rfc-style
+    nodejs
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

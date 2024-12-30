@@ -8,7 +8,7 @@
 
     settings = {
       "$mod" = "SUPER";
-      
+
       misc = {
         disable_splash_rendering = true;
         disable_hyprland_logo = true;
@@ -18,10 +18,10 @@
         "DP-1,preferred,auto,1"
         "DP-2,preferred,auto-up,1,transform,2"
       ];
-      
+
       exec-once = [
         "${pkgs.hyprpaper}/bin/hyprpaper"
-        "waybar"
+        "pkill waybar & sleep 0.5 && waybar"
         "${pkgs.hypridle}/bin/hypridle --idle 300 --exec ${pkgs.hyprlock}/bin/hyprlock"
         # other startup commands...
       ];
@@ -36,26 +36,27 @@
         # Window management
         "$mod, Q, killactive"
         "$mod, F, fullscreen"
-        
+
         # Focus
         "$mod, left, movefocus, l"
         "$mod, right, movefocus, r"
         "$mod, up, movefocus, u"
         "$mod, down, movefocus, d"
-        
+
         # Move windows
         "$mod SHIFT, left, movewindow, l"
         "$mod SHIFT, right, movewindow, r"
         "$mod SHIFT, up, movewindow, u"
         "$mod SHIFT, down, movewindow, d"
-        
+        "$mod SHIFT, f, togglefloating"
+
         # Workspaces
         "$mod, 1, workspace, 1"
         "$mod, 2, workspace, 2"
         "$mod, 3, workspace, 3"
         "$mod, 4, workspace, 4"
         "$mod, 5, workspace, 5"
-        
+
         # Move windows to workspaces
         "$mod SHIFT, 1, movetoworkspace, 1"
         "$mod SHIFT, 2, movetoworkspace, 2"
@@ -64,12 +65,12 @@
         "$mod SHIFT, 5, movetoworkspace, 5"
 
         # logout
-        "$mod SHIFT, Q, exit"  # Super + Shift + Q will log out to SDDM
+        "$mod SHIFT, Q, exit" # Super + Shift + Q will log out to SDDM
       ];
 
       # Window rules
       windowrule = [
-        "float, ^(rofi)$"
+        "float, ^(rofi|plexamp)$"
       ];
 
       # Some default env vars
