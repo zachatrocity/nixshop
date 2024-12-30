@@ -138,6 +138,10 @@ in
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
 
+  services.hypridle = {
+    enable = true;
+  };
+
   # Install firefox.
   programs.firefox.enable = true;
 
@@ -173,6 +177,8 @@ in
     firefox
     pkgs.nixfmt-rfc-style
     nodejs
+    hypridle
+    hyprlock
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

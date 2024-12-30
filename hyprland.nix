@@ -33,6 +33,10 @@
         "$mod, Space, exec, rofi -show drun"
         "$mod, B, exec, firefox"
 
+        # media keys
+        ",XF86AudioRaiseVolume, exec, pamixer --increase 3"
+        ",XF86AudioLowerVolume, exec, pamixer --decrease 3"
+
         # Window management
         "$mod, Q, killactive"
         "$mod, F, fullscreen"
