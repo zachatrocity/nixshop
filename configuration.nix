@@ -180,6 +180,7 @@ in
     hyprlock
     nodejs
     nodePackages.node2nix
+    devbox
   ];
 
   programs.npm.enable = true;
