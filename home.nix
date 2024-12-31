@@ -218,6 +218,14 @@
     };
   };
 
+  home.file.".npmrc".text = ''
+    prefix = ${config.home.homeDirectory}/.npm-packages
+  '';
+  
+  home.sessionPath = [
+    "${config.home.homeDirectory}/.npm-packages/bin"
+  ];
+
   home.stateVersion = "24.11";
   programs.home-manager.enable = true;
 }
