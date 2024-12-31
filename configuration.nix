@@ -181,6 +181,7 @@ in
     nodejs
     nodePackages.node2nix
     devbox
+    terraform
   ];
 
   programs.npm.enable = true;
