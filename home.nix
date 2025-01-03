@@ -42,6 +42,8 @@
     cava # Audio visualizer
     hyprpaper # wallpaper
     waybar
+    hypridle
+    hyprlock
 
     # archives
     zip

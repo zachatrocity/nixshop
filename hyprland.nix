@@ -67,8 +67,9 @@
         "$mod SHIFT, 4, movetoworkspace, 4"
         "$mod SHIFT, 5, movetoworkspace, 5"
 
-        # logout
-        "$mod SHIFT, Q, exit" # Super + Shift + Q will log out to SDDM
+        # lock and logout
+        "$mod SHIFT, Q, exec, hyprlock" # Super + Shift + Q to lock screen
+        "$mod SHIFT, E, exit" # Super + Shift + E to log out to SDDM
       ];
 
       # Window rules
@@ -120,6 +121,43 @@
       ];
     };
   };
+
+  home.file.".config/hypr/hyprlock.conf".text = ''
+    background {
+        monitor =
+        path = ~/nixos-config/wallpapers/big-mountain.jpg
+        blur_size = 4
+        blur_passes = 3
+    }
+    
+    input-field {
+        monitor =
+        size = 300, 50
+        outline_thickness = 2
+        dots_size = 0.2
+        dots_spacing = 0.15
+        dots_center = true
+        outer_color = rgba(33, 33, 33, 0.5)
+        inner_color = rgba(200, 200, 200, 0.5)
+        font_color = rgb(200, 200, 200)
+        fade_on_empty = true
+        placeholder_text = <i>Password...</i>
+        hide_input = false
+        position = 0, -20
+        halign = center
+        valign = center
+    }
+    
+    label {
+        monitor =
+        text = $TIME
+        color = rgba(200, 200, 200, 1.0)
+        font_size = 50
+        position = 0, -100
+        halign = center
+        valign = center
+    }
+  '';
 
   services.mako  = {
     enable = true;
