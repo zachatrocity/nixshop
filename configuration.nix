@@ -124,6 +124,7 @@ in
     extraGroups = [
       "networkmanager"
       "wheel"
+      "docker"
     ];
     packages = with pkgs; [
       #  thunderbird
@@ -137,10 +138,6 @@ in
   # Workaround for GNOME autologin: https://github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   systemd.services."getty@tty1".enable = false;
   systemd.services."autovt@tty1".enable = false;
-
-  services.hypridle = {
-    enable = true;
-  };
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -182,6 +179,9 @@ in
     nodePackages.node2nix
     devbox
     terraform
+    docker
+    docker-compose
+    just
   ];
 
   programs.npm.enable = true;
@@ -195,6 +195,13 @@ in
   # };
 
   # List services that you want to enable:
+
+  # Enable Docker
+  virtualisation.docker = {
+    enable = true;
+    # Enable docker compose
+    enableOnBoot = true;
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

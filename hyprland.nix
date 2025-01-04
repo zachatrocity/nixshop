@@ -22,7 +22,7 @@
       exec-once = [
         "${pkgs.hyprpaper}/bin/hyprpaper"
         "pkill waybar & sleep 0.5 && waybar"
-        # other startup commands...
+        "hypridle"
       ];
 
       # Basic window management
@@ -99,28 +99,25 @@
     wallpaper = ,~/nixos-config/wallpapers/big-mountain.jpg
   '';
 
-  services.hypridle = {
-    enable = true;
-    settings = {
-      general = {
-        after_sleep_cmd = "hyprctl dispatch dpms on";
-        ignore_dbus_inhibit = false;
-        lock_cmd = "hyprlock";
-      };
+  home.file.".config/hypr/hypridle.conf".text = ''
+    general {
+        lock_cmd = hyprlock
+        before_sleep_cmd = hyprlock
+        after_sleep_cmd = hyprctl dispatch dpms on
+        ignore_dbus_inhibit = false
+    }
 
-      listener = [
-        {
-          timeout = 900;
-          on-timeout = "hyprlock";
-        }
-        {
-          timeout = 1200;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
-        }
-      ];
-    };
-  };
+    listener {
+        timeout = 900
+        on-timeout = hyprlock
+    }
+
+    listener {
+        timeout = 1200
+        on-timeout = hyprctl dispatch dpms off
+        on-resume = hyprctl dispatch dpms on
+    }
+  '';
 
   home.file.".config/hypr/hyprlock.conf".text = ''
     background {
