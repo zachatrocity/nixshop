@@ -172,6 +172,7 @@ in
     git
     rofi-wayland
     firefox
+    xfce.thunar
     pkgs.nixfmt-rfc-style
     hypridle
     hyprlock

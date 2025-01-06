@@ -115,6 +115,8 @@
     # apps
     qFlipper
     plexamp
+    obsidian
+    okular
   ];
 
   home.sessionVariables = {
