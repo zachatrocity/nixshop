@@ -35,6 +35,7 @@
     # wayland/hyprland
     rofi-wayland
     papirus-icon-theme
+    hyprshot
     wl-clipboard
     grim # Screenshot utility
     slurp # Screen area selection
@@ -44,6 +45,7 @@
     waybar
     hypridle
     hyprlock
+    hdrop
 
     # archives
     zip

@@ -23,12 +23,13 @@
         "${pkgs.hyprpaper}/bin/hyprpaper"
         "pkill waybar & sleep 0.5 && waybar"
         "hypridle"
+        "[workspace special:terminal silent] ghostty"
       ];
 
       # Basic window management
       bind = [
         # Application launchers
-        "$mod, RETURN, exec, ghostty"
+        "$mod, grave, togglespecialworkspace, terminal"
         "$mod, Space, exec, rofi -show drun"
         "$mod, B, exec, firefox"
 
@@ -67,14 +68,25 @@
         "$mod SHIFT, 4, movetoworkspace, 4"
         "$mod SHIFT, 5, movetoworkspace, 5"
 
+        # Resize window width
+        "$mod, bracketleft, resizeactive, -30 0"
+        "$mod, bracketright, resizeactive, 30 0"
+
         # lock and logout
         "$mod SHIFT, Q, exec, hyprlock" # Super + Shift + Q to lock screen
         "$mod SHIFT, E, exit" # Super + Shift + E to log out to SDDM
+        
+        # screenshot
+        "$mod SHIFT, X, exec, hyprshot -m region --clipboard-only" # Super + Shift + X to take screenshot
       ];
 
       # Window rules
       windowrule = [
         "float, ^(rofi|plexamp)$"
+        "float, ^(ghostty)$"
+        "workspace special:terminal, ^(ghostty)$"
+        "size 100% 50%, ^(ghostty)$"
+        "move 50% 0%, ^(ghostty)$"
       ];
 
       # Some default env vars
