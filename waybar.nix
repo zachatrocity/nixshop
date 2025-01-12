@@ -96,9 +96,11 @@
        #clock {
                color: rgb(217, 224, 238);
              }
-      /* #idle_inhibitor {
-               color: rgb(221, 182, 242);
-             }*/
+       #idle_inhibitor {
+               padding-left: 10px;
+               padding-right: 10px;
+               color: #f5c2e7;
+             }
        #custom-wall {
                color: #33ccff;
           }
@@ -163,6 +165,7 @@
           "memory"
           "cpu"
           "network"
+          "idle_inhibitor"
           "custom/powermenu"
           "tray"
         ];
@@ -246,6 +249,14 @@
         "tray" = {
           "icon-size" = 15;
           "spacing" = 5;
+        };
+        "idle_inhibitor" = {
+          "format" = "{icon}";
+          "format-icons" = {
+            "activated" = "";
+            "deactivated" = "";
+          };
+          "tooltip" = false;
         };
       }
     ];
