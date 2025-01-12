@@ -2,6 +2,7 @@
   inputs,
   config,
   pkgs,
+  pkgs-stable,
   ...
 }:
 
@@ -57,7 +58,7 @@
     ripgrep # recursively searches directories for a regex pattern
     jq # A lightweight and flexible command-line JSON processor
     yq-go # yaml processor https://github.com/mikefarah/yq
-    eza # A modern replacement for ‘ls’
+    eza # A modern replacement for 'ls'
     fzf # A command-line fuzzy finder
 
     # networking tools
@@ -86,6 +87,9 @@
     # it provides the command `nom` works just like `nix`
     # with more details log output
     nix-output-monitor
+    
+    # aws
+    pkgs-stable.awscli2
 
     # productivity
     hugo # static site generator
@@ -119,6 +123,8 @@
     plexamp
     obsidian
     okular
+    slack
+    calibre
   ];
 
   home.sessionVariables = {
