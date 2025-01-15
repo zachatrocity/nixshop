@@ -183,6 +183,7 @@ in
     docker
     docker-compose
     just
+    discord-ptb
   ];
 
   programs.npm.enable = true;
