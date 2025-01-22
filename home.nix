@@ -125,6 +125,7 @@
     okular
     slack
     calibre
+    google-chrome
   ];
 
   home.sessionVariables = {

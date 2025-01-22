@@ -184,6 +184,10 @@ in
     docker-compose
     just
     discord-ptb
+    go
+    caddy
+    websocat
+    inotify-tools
   ];
 
   programs.npm.enable = true;
