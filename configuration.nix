@@ -17,6 +17,9 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Enable filesystem support
+  boot.supportedFilesystems = [ "ntfs" "exfat" "ext4" "vfat" ];
+
   networking.hostName = "nixshop"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -125,6 +128,8 @@ in
       "networkmanager"
       "wheel"
       "docker"
+      "plugdev"
+      "storage"
     ];
     packages = with pkgs; [
       #  thunderbird
@@ -173,6 +178,11 @@ in
     rofi-wayland
     firefox
     xfce.thunar
+    xfce.thunar-volman
+    gvfs # Virtual filesystem support
+    ntfs3g # NTFS support
+    exfat # exFAT support
+    dosfstools # FAT32 support
     pkgs.nixfmt-rfc-style
     hypridle
     hyprlock
@@ -211,6 +221,17 @@ in
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+
+  # Enable volume management for Thunar
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+  security.polkit.enable = true;
+  
+  # Enable better device detection and mounting
+  services.devmon.enable = true;
+  services.udev.packages = with pkgs; [ 
+    udisks2
+  ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

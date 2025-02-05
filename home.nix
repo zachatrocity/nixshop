@@ -60,6 +60,7 @@
     yq-go # yaml processor https://github.com/mikefarah/yq
     eza # A modern replacement for 'ls'
     fzf # A command-line fuzzy finder
+    fswatch # A file change monitor
 
     # networking tools
     mtr # A network diagnostic tool
@@ -117,6 +118,8 @@
     zed-editor
     vscode
     micro
+    flyctl
+    aider-chat
 
     # apps
     qFlipper
@@ -126,6 +129,7 @@
     slack
     calibre
     google-chrome
+    rpi-imager
   ];
 
   home.sessionVariables = {
