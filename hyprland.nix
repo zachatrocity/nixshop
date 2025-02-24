@@ -89,6 +89,13 @@
         "move 50% 0%, ^(ghostty)$"
       ];
 
+      windowrulev2 = [
+        "float,class:^(Zotero)$,title:^(Quick Format Citation|Progress)$"
+        "center,class:^(Zotero)$,title:^(Quick Format Citation|Progress)$"
+        "noanim,class:^(Zotero)$,title:^(Quick Format Citation|Progress)$"
+        "maxsize 400 100,class:^(Zotero)$,title:^(Quick Format Citation|Progress)$"
+      ];
+
       # Some default env vars
       env = [
         "XCURSOR_SIZE,24"

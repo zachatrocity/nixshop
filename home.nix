@@ -130,6 +130,9 @@
     calibre
     google-chrome
     rpi-imager
+    zotero
+    gparted
+    libation
   ];
 
   home.sessionVariables = {
