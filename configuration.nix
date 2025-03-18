@@ -104,6 +104,11 @@ in
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
   services.blueman.enable = true;
   security.rtkit.enable = true;
+  
+  # Enable KWallet
+  security.pam.services.kwallet = {
+    enableKwallet = true;
+  };
   services.pipewire = {
     enable = true;
     alsa.enable = true;
@@ -116,7 +121,7 @@ in
     # no need to redefine it in your config for now)
     #media-session.enable = true;
   };
-
+  
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -198,6 +203,8 @@ in
     caddy
     websocat
     inotify-tools
+    kdePackages.kwallet
+    kdePackages.kwalletmanager
   ];
 
   programs.npm.enable = true;

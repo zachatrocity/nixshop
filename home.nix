@@ -120,6 +120,18 @@
     micro
     flyctl
     aider-chat
+    
+    # rust
+    rustc
+    cargo
+    rustfmt
+    rust-analyzer
+    clippy
+    gcc # C compiler needed for Rust
+    openssl
+    
+    # javascript/typescript
+    bun
 
     # apps
     qFlipper
@@ -133,6 +145,7 @@
     zotero
     gparted
     libation
+    beeper
   ];
 
   home.sessionVariables = {
@@ -245,6 +258,8 @@
   home.sessionPath = [
     "${config.home.homeDirectory}/.npm-packages/bin"
   ];
+
+  programs.nheko.enable = true;
 
   home.stateVersion = "24.11";
   programs.home-manager.enable = true;
