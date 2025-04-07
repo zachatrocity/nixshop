@@ -146,6 +146,7 @@
     gparted
     libation
     beeper
+    scrcpy
   ];
 
   home.sessionVariables = {
